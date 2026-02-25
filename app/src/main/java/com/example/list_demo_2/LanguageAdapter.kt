@@ -1,13 +1,13 @@
-package com.example.list_demo_2
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class LanguageAdapter(private val languages: List<String>) :
-    RecyclerView.Adapter<LanguageAdapter.LanguageViewHolder>() {
+class LanguageAdapter(
+    private val languages: List<String>,
+    private val onItemClick: (String) -> Unit
+) : RecyclerView.Adapter<LanguageAdapter.LanguageViewHolder>() {
 
     class LanguageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtLanguage: TextView = itemView.findViewById(R.id.txtLanguage)
@@ -20,11 +20,14 @@ class LanguageAdapter(private val languages: List<String>) :
     }
 
     override fun onBindViewHolder(holder: LanguageViewHolder, position: Int) {
-        holder.txtLanguage.text = languages[position]
+        val language = languages[position]
+        holder.txtLanguage.text = language
+
+        holder.itemView.setOnClickListener {
+            onItemClick(language)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return languages.size
-    }
+    override fun getItemCount(): Int = languages.size
 }
 

@@ -1,9 +1,10 @@
 package com.example.list_demo_2
-
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +26,13 @@ class MainActivity : AppCompatActivity() {
         )
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = LanguageAdapter(languages)
+
+        recyclerView.adapter = LanguageAdapter(languages) { selectedLanguage ->
+            Toast.makeText(
+                this,
+                "You clicked: $selectedLanguage",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
